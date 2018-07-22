@@ -24,12 +24,12 @@ global_variables() {
 	# The typical subtitle for each blog
 	global_description="a blog about tildes"
 	# The public base URL for this blog
-	global_url="https://$USER.tilde.team/blog"
+	global_url="https://tilde.team/~$USER/blog"
 
 	# Your name
-	global_author="$USER"
+	global_author="~$USER"
 	# You can use twitter or facebook or anything for global_author_url
-	global_author_url="https://$USER.tilde.team"
+	global_author_url="https://tilde.team/~$USER/"
 	# Your email
 	global_email="$USER@tilde.team"
 
