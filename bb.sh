@@ -935,7 +935,7 @@ make_gophermap() {
 		mkdir "${HOME}/public_gopher"
 	fi
 
-	if [ ! -L "${HOME}/public_gopher" ]; then
+	if [ ! -L "${HOME}/public_gopher/blog" ]; then
 		ln -s "${HOME}/public_html/blog/" "${HOME}/public_gopher/blog"
 	fi
 
