@@ -993,7 +993,7 @@ rebuild_all_entries() {
 # Displays the help
 usage() {
 	echo "$global_software_name v$global_software_version"
-	echo "Usage: $0 command [filename]"
+	echo "usage: bb command [filename]"
 	echo ""
 	echo "Commands:"
 	echo "    post [-html] [filename] insert a new blog post, or the filename of a draft to continue editing it"
@@ -1010,7 +1010,8 @@ usage() {
 	echo "    tags [-n]               list all tags in alphabetical order"
 	echo "                            use '-n' to sort list by number of posts"
 	echo ""
-	echo "For more information please open $0 in a code editor and read the header and comments"
+	echo "for more information please see https://tilde.team/wiki/?page=tildeblogs"
+	echo "source here: https://git.tilde.team/meta/bashblog"
 }
 
 # Delete all generated content, leaving only this script
