@@ -103,7 +103,7 @@ global_variables() {
 	# "Read more..." (link under cut article on index page)
 	template_read_more="read more..."
 	# "View more posts" (used on bottom of index page as link to archive)
-	template_archive="view more posts"
+	template_archive="archive"
 	# "All posts" (title of archive page)
 	template_archive_title="all posts"
 	# "All tags"
@@ -117,9 +117,9 @@ global_variables() {
 	# "Tags:" (beginning of line in HTML file with list of all tags for this article)
 	template_tags_line_header="tags:"
 	# "Back to the index page" (used on archive page, it is link to blog index)
-	template_archive_index_page="back to the index page"
+	template_archive_index_page="back home"
 	# "Subscribe" (used on bottom of index page, it is link to RSS feed)
-	template_subscribe="subscribe"
+	template_subscribe="rss"
 	# "Subscribe to this page..." (used as text for browser feed button that is embedded to html)
 	template_subscribe_browser_button="subscribe to this page..."
 	# "Tweet" (used as twitter text button for posting to twitter)
@@ -864,7 +864,7 @@ make_gophermap() {
 	#!/bin/bash
 	echo -e "my bashblog posts\n"
 	user=$(stat -c '%U' .)
-	for post in *.md; do
+	for post in $(ls -t *.md); do
 		post=$(basename $post)
 		echo -e "0$post\t/~$user/blog/$post\ttilde.team\t70"
 	done
