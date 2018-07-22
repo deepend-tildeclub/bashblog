@@ -1,6 +1,18 @@
 bashblog
 ========
 
+This is the source for the customized bashblog used on [tilde.team](https://tilde.team). We have a [wiki page](https://tilde.team/wiki/?page=tildeblogs) with more details on our specific setup.
+
+Note for ~team admins:
+```bash
+sudo make install
+```
+to update the script in /usr/local/bin
+
+
+original README from [github](https://github.com/cfenollosa/bashblog) here:
+---
+
 A single Bash script to create blogs. 
 
 I created it because I wanted a very, very simple way to post entries to a blog by using a public folder on my server, without any special requirements and dependencies. Works on GNU/Linux, OSX and BSD.
@@ -19,11 +31,7 @@ Check out [other bashblog users](https://www.google.com/search?q=%22Generated+wi
 Usage
 -----
 
-Download the code and copy bb.sh into a public folder (for example, `$HOME/public_html/blog`) and run
-
-    bb
-
-This will show the available commands. If the file is not executable, type `chmod +x bb.sh` and retry.
+`bb` will show the available commands.
 
 **Before creating your first post, you may want to configure the blog settings (title, author, etc).
 Read the Configuration section below for more information**
@@ -32,13 +40,13 @@ To create your first post, just run:
 
     bb post
     
-It will try to use Markdown, if installed. To force HTML:
+It will use Markdown. To force HTML:
 
     bb post -html
     
 The script will handle the rest.
 
-When you're done, access the public URL for that folder  (e.g. `https://tilde.team/~username/blog`) 
+When you're done, access the public URL for that folder (`https://tilde.team/~username/blog`) 
 and you should see the index file and a new page for that post!
 
 
