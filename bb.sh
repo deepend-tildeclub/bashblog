@@ -287,21 +287,17 @@ twitter_card() {
 twitter() {
 	[[ -z $global_twitter_username ]] && return
 
-	if [[ -z $global_disqus_username ]]; then
-		if [[ $global_twitter_cookieless == true ]]; then 
-			id=$RANDOM
+	if [[ $global_twitter_cookieless == true ]]; then 
+		id=$RANDOM
 
-			search_engine="https://twitter.com/search?q="
+		search_engine="https://twitter.com/search?q="
 
-			echo "<p id='twitter'><a href='http://twitter.com/intent/tweet?url=$1&text=$template_twitter_comment&via=$global_twitter_username'>$template_comments $template_twitter_button</a> "
-			echo "<a href='$search_engine""$1'><span id='count-$id'></span></a>&nbsp;</p>"
-			return;
-		else 
-			echo "<p id='twitter'>$template_comments&nbsp;"; 
-		fi
-	else
-		echo "<p id='twitter'><a href=\"$1#disqus_thread\">$template_comments</a> &nbsp;"
-	fi  
+		echo "<p id='twitter'><a href='http://twitter.com/intent/tweet?url=$1&text=$template_twitter_comment&via=$global_twitter_username'>$template_comments $template_twitter_button</a> "
+		echo "<a href='$search_engine""$1'><span id='count-$id'></span></a>&nbsp;</p>"
+		return;
+	else 
+		echo "<p id='twitter'>$template_comments&nbsp;"; 
+	fi
 
 	echo "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-text=\"$template_twitter_comment\" data-url=\"$1\""
 	echo " data-via=\"$global_twitter_username\""
@@ -360,7 +356,6 @@ create_html_page() {
 	{
 		cat ".header.html"
 		echo "<title>$title</title>"
-		google_analytics
 		twitter_card "$content" "$title"
 		echo "</head><body>"
 		# stuff to add before the actual body content
@@ -410,14 +405,10 @@ create_html_page() {
 
 		echo '</div>' # content
 
-		# Add disqus commments except for index and all_posts pages
-		[[ $index == no ]] && disqus_body
-
 		# page footer
 		cat .footer.html
 		# close divs
 		echo '</div></div>' # divbody and divbodyholder 
-		disqus_footer
 		[[ -n $body_end_file ]] && cat "$body_end_file"
 		echo '</body></html>'
 	} > "$filename"
@@ -1071,11 +1062,7 @@ date_version_detect() {
 # $2     file name of a draft to continue editing (optional)
 do_main() {
 	# make sure we're in the right directory
-	[ $(pwd) = $HOME/public_html/blog ] || (
-		echo "you're not in your blog directory. moving you there now."
-		mkdir -p $HOME/public_html/blog
-		cd $HOME/public_html/blog
-	)
+	[ $(pwd) != $HOME/public_html/blog ] && echo "you're not in your blog directory." && exit
 
 	# Detect if using BSD date or GNU date
 	date_version_detect
