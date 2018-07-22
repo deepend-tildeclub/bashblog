@@ -949,6 +949,7 @@ make_gophermap() {
 	done
 	EOF
 	chmod +x $HOME/public_html/blog/gophermap
+	chmod 644 *.md
 }
 
 # generate headers, footers, etc
