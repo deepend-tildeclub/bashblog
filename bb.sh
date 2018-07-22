@@ -16,32 +16,26 @@ global_config=".config"
 # This function will load all the variables defined here. They might be overridden
 # by the 'global_config' file contents
 global_variables() {
-	global_software_name="BashBlog"
+	global_software_name="bashblog"
 	global_software_version="2.8"
 
 	# Blog title
-	global_title="My tildelog"
+	global_title="my tildelog"
 	# The typical subtitle for each blog
-	global_description="A blog about tildes"
+	global_description="a blog about tildes"
 	# The public base URL for this blog
-	global_url="https://tilde.team/blog"
+	global_url="https://$USER.tilde.team/blog"
 
 	# Your name
-	global_author="tildeman"
+	global_author="$USER"
 	# You can use twitter or facebook or anything for global_author_url
-	global_author_url="http://twitter.com/example"
+	global_author_url="https://$USER.tilde.team"
 	# Your email
-	global_email="someone@tilde.team"
+	global_email="$USER@tilde.team"
 
 	# CC by-nc-nd is a good starting point, you can change this to "&copy;" for Copyright
 	global_license="CC by-nc-nd"
 
-	# If you have a Google Analytics ID (UA-XXXXX) and wish to use the standard
-	# embedding code, put it on global_analytics
-	# If you have custom analytics code (i.e. non-google) or want to use the Universal
-	# code, leave global_analytics empty and specify a global_analytics_file
-	global_analytics=""
-	global_analytics_file=""
 
 	# Leave this empty (i.e. "") if you don't want to use feedburner, 
 	# or change it to your own URL
@@ -55,10 +49,6 @@ global_variables() {
 	# Default search page, where tweets more than a week old are hidden
 	global_twitter_search="twitter"
 
-	# Change this to your disqus username to use disqus for comments
-	global_disqus_username=""
-
-
 	# Blog generated files
 	# index page of blog (it is usually good to use "index.html" here)
 	index_file="index.html"
@@ -67,6 +57,7 @@ global_variables() {
 	archive_index="all_posts.html"
 	tags_index="all_tags.html"
 
+	# ignore gophermap file
 	gophermap="gophermap"
 
 	# Non blogpost files. Bashblog will ignore these. Useful for static pages and custom content
@@ -108,32 +99,32 @@ global_variables() {
 
 	# Localization and i18n
 	# "Comments?" (used in twitter link after every post)
-	template_comments="Comments?"
+	template_comments="comments?"
 	# "Read more..." (link under cut article on index page)
-	template_read_more="Read more..."
+	template_read_more="read more..."
 	# "View more posts" (used on bottom of index page as link to archive)
-	template_archive="View more posts"
+	template_archive="view more posts"
 	# "All posts" (title of archive page)
-	template_archive_title="All posts"
+	template_archive_title="all posts"
 	# "All tags"
-	template_tags_title="All tags"
+	template_tags_title="all tags"
 	# "posts" (on "All tags" page, text at the end of each tag line, like "2. Music - 15 posts")
 	template_tags_posts="posts"
 	template_tags_posts_2_4="posts"  # Some slavic languages use a different plural form for 2-4 items
 	template_tags_posts_singular="post"
 	# "Posts tagged" (text on a title of a page with index of one tag, like "My Blog - Posts tagged "Music"")
-	template_tag_title="Posts tagged"
+	template_tag_title="posts tagged"
 	# "Tags:" (beginning of line in HTML file with list of all tags for this article)
-	template_tags_line_header="Tags:"
+	template_tags_line_header="tags:"
 	# "Back to the index page" (used on archive page, it is link to blog index)
-	template_archive_index_page="Back to the index page"
+	template_archive_index_page="back to the index page"
 	# "Subscribe" (used on bottom of index page, it is link to RSS feed)
-	template_subscribe="Subscribe"
+	template_subscribe="subscribe"
 	# "Subscribe to this page..." (used as text for browser feed button that is embedded to html)
-	template_subscribe_browser_button="Subscribe to this page..."
+	template_subscribe_browser_button="subscribe to this page..."
 	# "Tweet" (used as twitter text button for posting to twitter)
-	template_twitter_button="Tweet"
-	template_twitter_comment="&lt;Type your comment here but please leave the URL so that other people can follow the comments&gt;"
+	template_twitter_button="tweet"
+	template_twitter_comment="&lt;type your comment here but please leave the URL so that other people can follow the comments&gt;"
 	
 	# The locale to use for the dates displayed on screen
 	date_format="%B %d, %Y"
@@ -189,67 +180,6 @@ markdown() {
 	while [[ -f $out ]]; do out=${out%.html}.$RANDOM.html; done
 	$markdown_bin "$1" > "$out"
 	echo "$out"
-}
-
-
-# Prints the required google analytics code
-google_analytics() {
-	[[ -z $global_analytics && -z $global_analytics_file ]]  && return
-
-	if [[ -z $global_analytics_file ]]; then
-		echo "<script type=\"text/javascript\">
-
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', '${global_analytics}']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-
-		</script>"
-	else
-		cat "$global_analytics_file"
-	fi
-}
-
-# Prints the required code for disqus comments
-disqus_body() {
-	[[ -z $global_disqus_username ]] && return
-
-	echo '<div id="disqus_thread"></div>
-			<script type="text/javascript">
-			/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-			   var disqus_shortname = '"'$global_disqus_username'"'; // required: replace example with your forum shortname
-
-			/* * * DONT EDIT BELOW THIS LINE * * */
-			(function() {
-			var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
-			dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-			(document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
-			})();
-			</script>
-			<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-			<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>'
-}
-
-# Prints the required code for disqus in the footer
-disqus_footer() {
-	[[ -z $global_disqus_username ]] && return
-	echo '<script type="text/javascript">
-		/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-		var disqus_shortname = '"'$global_disqus_username'"'; // required: replace example with your forum shortname
-
-		/* * * DONT EDIT BELOW THIS LINE * * */
-		(function () {
-		var s = document.createElement("script"); s.async = true;
-		s.type = "text/javascript";
-		s.src = "//" + disqus_shortname + ".disqus.com/count.js";
-		(document.getElementsByTagName("HEAD")[0] || document.getElementsByTagName("BODY")[0]).appendChild(s);
-	}());
-	</script>'
 }
 
 # Reads HTML file from stdin, prints its content to stdout
@@ -979,7 +909,7 @@ create_includes() {
 		protected_mail=${global_email//@/&#64;}
 		protected_mail=${protected_mail//./&#46;}
 		echo "<div id=\"footer\">$global_license <a href=\"$global_author_url\">$global_author</a> &mdash; <a href=\"mailto:$protected_mail\">$protected_mail</a><br/>"
-		echo 'Generated with <a href="https://github.com/cfenollosa/bashblog">bashblog</a>, a single bash script to easily create blogs like this one</div>'
+		echo 'generated with <a href="https://git.tilde.team/meta/bashblog">bashblog</a>, a single bash script to easily create blogs like this one</div>'
 		} >> ".footer.html"
 	fi
 }
@@ -1140,6 +1070,13 @@ date_version_detect() {
 # $1     command to run
 # $2     file name of a draft to continue editing (optional)
 do_main() {
+	# make sure we're in the right directory
+	[ $(pwd) = $HOME/public_html/blog ] || (
+		echo "you're not in your blog directory. moving you there now."
+		mkdir -p $HOME/public_html/blog
+		cd $HOME/public_html/blog
+	)
+
 	# Detect if using BSD date or GNU date
 	date_version_detect
 	# Load default configuration, then override settings with the config file
