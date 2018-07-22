@@ -1062,7 +1062,8 @@ date_version_detect() {
 # $2     file name of a draft to continue editing (optional)
 do_main() {
 	# make sure we're in the right directory
-	[ $(pwd) != $HOME/public_html/blog ] && echo "you're not in your blog directory." && exit
+	[ $(pwd) != $HOME/public_html/blog ] && 
+		echo "you're not in your blog directory. moving you there now" && cd $HOME/public_html/blog
 
 	# Detect if using BSD date or GNU date
 	date_version_detect
