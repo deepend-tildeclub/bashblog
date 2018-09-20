@@ -900,7 +900,7 @@ create_includes() {
 		protected_mail=${global_email//@/&#64;}
 		protected_mail=${protected_mail//./&#46;}
 		echo "<div id=\"footer\">$global_license <a href=\"$global_author_url\">$global_author</a> &mdash; <a href=\"mailto:$protected_mail\">$protected_mail</a><br/>"
-		echo 'generated with <a href="https://git.tilde.team/meta/bashblog">bashblog</a>, a single bash script to easily create blogs like this one</div>'
+		echo 'generated with <a href="https://tildegit.org/team/bashblog">bashblog</a>, a single bash script to easily create blogs like this one</div>'
 		} >> ".footer.html"
 	fi
 }
@@ -1011,7 +1011,7 @@ usage() {
 	echo "                            use '-n' to sort list by number of posts"
 	echo ""
 	echo "for more information please see https://tilde.team/wiki/?page=tildeblogs"
-	echo "source here: https://git.tilde.team/meta/bashblog"
+	echo "source here: https://tildegit.org/team/bashblog"
 }
 
 # Delete all generated content, leaving only this script
