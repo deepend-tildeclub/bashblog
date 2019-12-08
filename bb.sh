@@ -24,14 +24,14 @@ global_variables() {
 	# The typical subtitle for each blog
 	global_description="a blog about tildes"
 	# The public base URL for this blog
-	global_url="https://tilde.team/~$USER/blog"
+	global_url="https://tilde.club/~$USER/blog"
 
 	# Your name
 	global_author="~$USER"
 	# You can use twitter or facebook or anything for global_author_url
-	global_author_url="https://tilde.team/~$USER/"
+	global_author_url="https://tilde.club/~$USER/"
 	# Your email
-	global_email="$USER@tilde.team"
+	global_email="$USER@tilde.club"
 
 	# CC by-nc-nd is a good starting point, you can change this to "&copy;" for Copyright
 	global_license="CC by-nc-nd"
@@ -866,7 +866,7 @@ make_gophermap() {
 	user=$(stat -c '%U' .)
 	for post in $(ls -t *.md); do
 		post=$(basename $post)
-		echo -e "0$post\t/~$user/blog/$post\ttilde.team\t70"
+		echo -e "0$post\t/~$user/blog/$post\ttilde.club\t70"
 	done
 	EOF
 	chmod +x $HOME/public_html/blog/gophermap
@@ -900,7 +900,7 @@ create_includes() {
 		protected_mail=${global_email//@/&#64;}
 		protected_mail=${protected_mail//./&#46;}
 		echo "<div id=\"footer\">$global_license <a href=\"$global_author_url\">$global_author</a> &mdash; <a href=\"mailto:$protected_mail\">$protected_mail</a><br/>"
-		echo 'generated with <a href="https://tildegit.org/team/bashblog">bashblog</a>, a single bash script to easily create blogs like this one</div>'
+		echo 'generated with <a href="https://tildegit.org/club/bashblog">bashblog</a>, a single bash script to easily create blogs like this one</div>'
 		} >> ".footer.html"
 	fi
 }
@@ -1010,8 +1010,8 @@ usage() {
 	echo "    tags [-n]               list all tags in alphabetical order"
 	echo "                            use '-n' to sort list by number of posts"
 	echo ""
-	echo "for more information please see https://tilde.team/wiki/?page=tildeblogs"
-	echo "source here: https://tildegit.org/team/bashblog"
+	echo "for more information please see https://tilde.club/wiki/tildeblogs.html"
+	echo "source here: https://tildegit.org/club/bashblog"
 }
 
 # Delete all generated content, leaving only this script
