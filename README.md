@@ -1,9 +1,9 @@
 bashblog
 ========
 
-This is the source for the customized bashblog used on [tilde.team](https://tilde.team). We have a [wiki page](https://tilde.team/wiki/?page=tildeblogs) with more details on our specific setup.
+This is the source for the customized bashblog used on [tilde.club](https://tilde.club).
 
-Note for ~team admins:
+Note for ~club admins:
 ```bash
 sudo make install
 ```
@@ -46,7 +46,7 @@ It will use Markdown. To force HTML:
     
 The script will handle the rest.
 
-When you're done, access the public URL for that folder (`https://tilde.team/~username/blog`) 
+When you're done, access the public URL for that folder (`https://tilde.club/~username/blog`) 
 and you should see the index file and a new page for that post!
 
 
