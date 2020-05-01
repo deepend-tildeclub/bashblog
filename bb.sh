@@ -1010,7 +1010,7 @@ usage() {
 	echo "    tags [-n]               list all tags in alphabetical order"
 	echo "                            use '-n' to sort list by number of posts"
 	echo ""
-	echo "for more information please see https://tilde.club/wiki/tildeblogs.html"
+	echo "for more information please see https://tilde.club/wiki/bashblog.html"
 	echo "source here: https://tildegit.org/club/bashblog"
 }
 
