@@ -39,12 +39,19 @@ will open your
 .Ev $EDITOR
 to author a new post in markdown. if available, else in html directly. Use
 .Nm
-.br
 .Cm post
 .Fl html
-to start a new post using HTML even when markdown is available.
+to start a new post using HTML even when markdown is available. After you
+save and exit your editor, you will be asked if you want to post (
+.Sq p
+), edit (
+.Sq E
+) or keep this for later as a draft (
+.Sq d
+).
 Posts will be served at
-.Pa https://tilde.club/~you/blog/ .
+.Pa https://tilde.club/~you/blog/
+\.
 Specifying a
 .Pa filename
 will pre-load the editor with the contents of that file.
@@ -82,7 +89,7 @@ regenerates all pages and posts, preserving the content of the entries.
 .Nm
 .Cm reset
 deletes everything. Use with caution and
-.Sy backup everything
+.Em backup everything
 first.
 .Pp
 .Nm
@@ -113,7 +120,10 @@ otherwise you will see strange behaviour.
 Configuration file overriding the global defaults.
 .Pp
 .It Pa drafts/
-Folder where you drafts are saved.
+Folder where you drafts are saved if you choose the
+.Sq d
+option after exiting your
+.Ev EDITOR .
 .It Pa .backup.tar.gz
 Backup from before you did something silly.
 .It Pa .yesterday.tar.gz
@@ -135,8 +145,8 @@ which allows you to set
 variables which override the global defaults.
 .Em Note,
 this is a bash script, so the format is
-.Ql var="value" .
-Do not try to get fancy.
+.Dl var="value"
+Please do not try to get fancy.
 .Pp
 Available variables:
 .Bl -tag -width xxxxxxxxxxxxxxxxxxxxxx
@@ -144,6 +154,70 @@ Available variables:
 Blog title
 .It global_description
 The typical subtitle for each blog.
+.It global_url
+The public base URL for this blog.
+.It global_author
+Your name
+.It global_author_url
+You can use your tildehome, Twitter, Facebook, etc. as your
+.Sq global_author_url
+.It global_email
+Your email address.
+.It global_license
+CC by-nc-nd is a good starting point, but you can pick a different license. You can change this to
+.Ql &copy;
+for Copyright.
+.It global_feedburner
+Set to empty (
+.Ql ""
+) if you don't use feedburner, otherwise point it to your URL.
+.It global_twitter_username
+Set this to your username if you want to use Twitter for comments.
+.It global_twitter_cookieless
+Set this to
+.Ql false
+for a Twitter button with a share count. The cookieless version is just a link.
+.It global_twitter_search
+Default search page, where tweets more than a week old are hidden.
+.It index_file
+The index page of the blog. Probably a good idea to stick with
+.Ql index.html
+.It number_of_index_articles
+How many posts to show on the index page.
+.It archive_index
+Page name of your 
+.Dq all posts
+page.
+.It tags_index
+Page name of your
+.Dq all tags
+page.
+.It gophermap
+Ignore gophermap?
+.It non_blogpost_files
+A bash array of files that 
+.Nm
+will ignore. Useful for static resources. E.g.
+.Dl
+non_blogpost_files=("news.html" "test.html")
+.It blog_feed
+RSS feed file name.
+.It number_of_feed_articles
+How many posts to put in the RSS feed.
+.It cut_do
+.Dq cut
+blog entry when putting it to index page. Leave blank for full
+articles in front page, i.e. include only up to first 
+.Ql <hr>
+or 
+.Ql ----
+in markdown.
+.It cut_tags
+When cutting, cut also tags? If 
+.Ql no
+, tags will appear in index page for cut articles. If 
+.Ql yes
+, they won't.
 .El
 .Sh EXAMPLES
 .Sh DIAGNOSTICS
