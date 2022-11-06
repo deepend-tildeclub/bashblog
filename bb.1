@@ -1,0 +1,157 @@
+.Dd $Mdocdate$
+.Dt BB 1
+.Os
+.Sh NAME
+.Nm bb
+.Nd A single bash script to create blogs
+.Sh SYNOPSYS
+.Nm
+.Cm post
+.Op Fl html
+.Op Pa filename
+.Pp
+.Nm
+.Cm edit
+.Oo Fl n
+|
+.Fl f
+.Oc
+.Pa filename
+.Pp
+.Nm
+.Cm delete
+.Pa filename
+.Pp
+.Nm
+.Cm rebuild|reset|list
+.Pp
+.Nm
+.Cm tags
+.Op Fl n
+.Sh DESCRIPTION
+When invoked without arguments or with invalid arguments,
+.Nm
+will print usage. Before you go any further, you may want to check the CONFIGURATION section.
+.Pp
+.Nm
+.Cm post
+will open your
+.Ev $EDITOR
+to author a new post in markdown. if available, else in html directly. Use
+.Nm
+.br
+.Cm post
+.Fl html
+to start a new post using HTML even when markdown is available.
+Posts will be served at
+.Pa https://tilde.club/~you/blog/ .
+Specifying a
+.Pa filename
+will pre-load the editor with the contents of that file.
+.Pa filename
+is relative to
+.Pa ~/public_html/blog/.
+.Pp
+.Nm
+.Cm edit
+.Pa filename
+allows you to edit an already published .html or .md file.
+.Pa filename
+is relative to 
+.Ev ~/public_html/blog
+and can be either the .md or .html.
+.Sy Never
+manually edit a published .html file, always use this function as it
+keeps internal data and rebuilds the blog.
+Use
+.Fl n
+to give the file a new name, if the title is changed.
+Use
+.Fl f
+to edit the full html.
+.Pp
+.Nm
+.Cm delete
+.Pa filename
+will delete a post and rebuild the blog.
+.Pp
+.Nm
+.Cm rebuild
+regenerates all pages and posts, preserving the content of the entries.
+.Pp
+.Nm
+.Cm reset
+deletes everything. Use with caution and
+.Sy backup everything
+first.
+.Pp
+.Nm
+.Cm list
+lists all posts.
+.Pp
+.Nm
+.Cm tags
+lists all tags in alphabetical order.
+.Fl n
+sorts by number of posts under each tag.
+.Sh ENVIRONMENT
+The following environment variables are used by
+.Nm
+:
+.Bl -tag -width EDITORX
+.It Ev EDITOR
+Tell
+.Nm
+which editor you want to use to edit your posts.
+.Sh FILES
+.Bl -tag -width x/public_html/blog
+.It Pa ~/public_html/blog
+The default path for your production blog folder. Make sure to create this,
+otherwise you will see strange behaviour.
+.Em All paths are relative to this directory.
+.It Pa .config
+Configuration file overriding the global defaults.
+.Pp
+.It Pa drafts/
+Folder where you drafts are saved.
+.It Pa .backup.tar.gz
+Backup from before you did something silly.
+.It Pa .yesterday.tar.gz
+A backup from yesterday in case
+.Pa .backup.tar.gz
+already includes the silly mistake.
+.El
+.Sh CONFIGURATION
+Global defaults are kept within the
+.Nm
+sh script itself, in the
+.Fn global_variables
+function.
+.Pp
+You can create
+.Pa ~/public_html/blog/.config
+which allows you to set 
+.Sy bash
+variables which override the global defaults.
+.Em Note,
+this is a bash script, so the format is
+.Ql var="value" .
+Do not try to get fancy.
+.Pp
+Available variables:
+.Bl -tag -width xxxxxxxxxxxxxxxxxxxxxx
+.It global_title
+Blog title
+.It global_description
+The typical subtitle for each blog.
+.El
+.Sh EXAMPLES
+.Sh DIAGNOSTICS
+.Sh SEE ALSO
+.\" .Xr man 1
+.Sh AUTHORS
+.An cfenollosa Aq Pa https://github.com/cfenollosa
+.Pp
+.An man page by Vlad Meșco Aq Pa alzwded@tilde.club
+.\" .Sh CAVEATS
+.\" .Sh BUGS
