@@ -381,7 +381,7 @@ Perform the post title -> filename conversion. Experts only. You may need to tun
 .TP 24n
 preview_url
 URL where you can view the post while it's being edited. By default, it is
-\(oqglobal_url\(cq
+\(oqglobal_url\(cq\&.
 You can change it to the path on your computer, if you write posts locally, before copying them to the server.
 .SH "EXAMPLES"
 Post a markdown file:
@@ -389,7 +389,7 @@ Post a markdown file:
 bb post ~/my_new_post.md
 .RE
 then hit
-\(lap\(ra
+\(lap\(ra\&.
 .PP
 Continue editing a draft:
 .RS 6n
