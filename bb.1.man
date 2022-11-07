@@ -1,4 +1,6 @@
 .\" Automatically generated from an mdoc input file.  Do not edit.
+.\" Use mandoc -T man ./bb.1.mdoc > bb.1.man to conver to the old
+.\" (but still actively encouraged) Linux "an" format.
 .TH "BB" "1" "November 7, 2022" "Linux 3.10.0-1160.76.1.el7.x86_64" "General Commands Manual"
 .nh
 .if n .ad l
@@ -43,13 +45,13 @@ to author a new post in markdown. if available, else in html directly. Use
 \fB\-html\fR
 to start a new post using HTML even when markdown is available. After you
 save and exit your editor, you will be asked if you want to post
-(\(oqp\(cq),
+(\(lap\(ra),
 edit
-(\(oqE\(cq)
+(\(laE\(ra)
 or keep this for later as a draft
-(\(oqd\(cq).
+(\(lad\(ra).
 Posts will be served at
-\fIhttps://tilde.club/~you/blog/\fR
+\fBhttps://tilde.club/~you/blog/\fR
 Specifying a
 \fIfilename\fR
 will pre-load the editor with the contents of that file.
@@ -382,9 +384,52 @@ URL where you can view the post while it's being edited. By default, it is
 \(oqglobal_url\(cq
 You can change it to the path on your computer, if you write posts locally, before copying them to the server.
 .SH "EXAMPLES"
-.SH "DIAGNOSTICS"
+Post a markdown file:
+.RS 6n
+bb post ~/my_new_post.md
+.RE
+then hit
+\(lap\(ra
+.PP
+Continue editing a draft:
+.RS 6n
+bb post drafts/the-title-I-was-thinking-of.md
+.RE
 .SH "SEE ALSO"
+bash(1),
+for a reference on variable assignments.
 .SH "AUTHORS"
 cfenollosa \(la\fIhttps://github.com/cfenollosa\fR\(ra
 .PP
 man page by Vlad Me\[u0219]co \(la\fIalzwded@tilde.club\fR\(ra
+.SH "CAVEATS"
+The tilde.club version imposes that the
+\fIblog\fR
+root directory is
+\fI~/public_html/blog\fR,
+and it will
+cd(1)
+to that directory before doing anything else. This makes all
+\fIpaths\fR
+be relative to that directory.
+.PP
+As a side effect, if the
+\fI~/public_html/blog/\fR
+directory does not exist,
+\fBbb\fR
+will get confused and dump files where you don't expect them. Make sure
+you create that path before running
+\fBbb\fR:
+.RS 6n
+mkdir -p ~/public_html/blog/
+.RE
+.PP
+Post file names might get de-unicoded, so if
+\fBbb\fR
+complains it couldn't find your file, use
+find(1)
+or
+grep(1)
+in
+\fI~/public_html/blog/\fR
+to find them.

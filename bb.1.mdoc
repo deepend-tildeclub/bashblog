@@ -47,23 +47,23 @@ to start a new post using HTML even when markdown is available. After you
 save and exit your editor, you will be asked if you want to post
 .Sm off
 (
-.Ql p
+.Aq p
 ),
 .Sm on
 edit
 .Sm off
 (
-.Ql E
+.Aq E
 )
 .Sm on
 or keep this for later as a draft
 .Sm off
 (
-.Sq d
+.Aq d
 ).
 .Sm on
 Posts will be served at
-.Pa https://tilde.club/~you/blog/
+.Lk https://tilde.club/~you/blog/
 \.
 Specifying a
 .Pa filename
@@ -371,12 +371,59 @@ URL where you can view the post while it's being edited. By default, it is
 You can change it to the path on your computer, if you write posts locally, before copying them to the server.
 .El
 .Sh EXAMPLES
-.Sh DIAGNOSTICS
+Post a markdown file:
+.Dl bb post ~/my_new_post.md
+then hit
+.Sm off
+.Aq p
+.
+.Sm on
+.Pp
+Continue editing a draft:
+.Dl bb post drafts/the-title-I-was-thinking-of.md
 .Sh SEE ALSO
-.\" .Xr man 1
+.Sm off
+.Xr bash 1
+,
+.Sm on
+for a reference on variable assignments.
 .Sh AUTHORS
 .An cfenollosa Aq Pa https://github.com/cfenollosa
 .Pp
 .An man page by Vlad Meșco Aq Pa alzwded@tilde.club
-.\" .Sh CAVEATS
+.Sh CAVEATS
+The tilde.club version imposes that the
+.Pa blog
+root directory is
+.Sm off
+.Pa ~/public_html/blog
+,
+.Sm on
+and it will
+.Xr cd 1
+to that directory before doing anything else. This makes all
+.Pa paths
+be relative to that directory.
+.Pp
+As a side effect, if the
+.Pa ~/public_html/blog/
+directory does not exist,
+.Nm
+will get confused and dump files where you don't expect them. Make sure
+you create that path before running
+.Sm off
+.Nm
+:
+.Sm on
+.Dl mkdir -p ~/public_html/blog/
+.Pp
+Post file names might get de-unicoded, so if
+.Nm
+complains it couldn't find your file, use
+.Xr find 1
+or
+.Xr grep 1
+in
+.Pa ~/public_html/blog/
+to find them.
 .\" .Sh BUGS
