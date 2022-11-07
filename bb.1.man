@@ -1,0 +1,390 @@
+.\" Automatically generated from an mdoc input file.  Do not edit.
+.TH "BB" "1" "November 7, 2022" "Linux 3.10.0-1160.76.1.el7.x86_64" "General Commands Manual"
+.nh
+.if n .ad l
+.SH "NAME"
+\fBbb\fR
+\- A single bash script to create blogs
+.SH "SYNOPSYS"
+\fBbb\fR
+\fBpost\fR
+[\fB\-html\fR]
+[\fIfilename\fR]
+.PP
+\fBbb\fR
+\fBedit\fR
+[\fB\-n\fR
+|
+\fB\-f\fR]
+\fIfilename\fR
+.PP
+\fBbb\fR
+\fBdelete\fR
+\fIfilename\fR
+.PP
+\fBbb\fR
+\fBrebuild|reset|list\fR
+.PP
+\fBbb\fR
+\fBtags\fR
+[\fB\-n\fR]
+.SH "DESCRIPTION"
+When invoked without arguments or with invalid arguments,
+\fBbb\fR
+will print usage. Before you go any further, you may want to check the CONFIGURATION section.
+.PP
+\fBbb\fR
+\fBpost\fR
+will open your
+\fR$EDITOR\fR
+to author a new post in markdown. if available, else in html directly. Use
+\fBbb\fR
+\fBpost\fR
+\fB\-html\fR
+to start a new post using HTML even when markdown is available. After you
+save and exit your editor, you will be asked if you want to post
+(\(oqp\(cq),
+edit
+(\(oqE\(cq)
+or keep this for later as a draft
+(\(oqd\(cq).
+Posts will be served at
+\fIhttps://tilde.club/~you/blog/\fR
+Specifying a
+\fIfilename\fR
+will pre-load the editor with the contents of that file.
+\fIfilename\fR
+is relative to
+\fI~/public_html/blog/.\fR
+.PP
+\fBbb\fR
+\fBedit\fR
+\fIfilename\fR
+allows you to edit an already published .html or .md file.
+\fIfilename\fR
+is relative to
+\fR~/public_html/blog\fR
+and can be either the .md or .html.
+\fBNever\fR
+manually edit a published .html file, always use this function as it
+keeps internal data and rebuilds the blog.
+Use
+\fB\-n\fR
+to give the file a new name, if the title is changed.
+Use
+\fB\-f\fR
+to edit the full html.
+.PP
+\fBbb\fR
+\fBdelete\fR
+\fIfilename\fR
+will delete a post and rebuild the blog.
+.PP
+\fBbb\fR
+\fBrebuild\fR
+regenerates all pages and posts, preserving the content of the entries.
+.PP
+\fBbb\fR
+\fBreset\fR
+deletes everything. Use with caution and
+\fIbackup everything\fR
+first.
+.PP
+\fBbb\fR
+\fBlist\fR
+lists all posts.
+.PP
+\fBbb\fR
+\fBtags\fR
+lists all tags in alphabetical order.
+\fB\-n\fR
+sorts by number of posts under each tag.
+.SH "ENVIRONMENT"
+The following environment variables are used by
+\fBbb\fR
+:
+.TP 9n
+\fREDITOR\fR
+Tell
+\fBbb\fR
+which editor you want to use to edit your posts.
+.SH "FILES"
+.TP 20n
+\fI~/public_html/blog\fR
+The default path for your production blog folder. Make sure to create this,
+otherwise you will see strange behaviour.
+\fIAll paths are relative to this directory.\fR
+.TP 20n
+\fI.config\fR
+Configuration file overriding the global defaults.
+.TP 20n
+\fIdrafts/\fR
+Folder where you drafts are saved if you choose the
+\(oqd\(cq
+option after exiting your
+\fREDITOR\fR.
+.TP 20n
+\fI.backup.tar.gz\fR
+Backup from before you did something silly.
+.TP 20n
+\fI.yesterday.tar.gz\fR
+A backup from yesterday in case
+\fI.backup.tar.gz\fR
+already includes the silly mistake.
+.SH "CONFIGURATION"
+Global defaults are kept within the
+\fBbb\fR
+sh script itself, in the
+\fBglobal_variables\fR()
+function.
+.PP
+You can create
+\fI~/public_html/blog/.config\fR
+which allows you to set
+\fBbash\fR
+variables which override the global defaults.
+\fINote,\fR
+this is a bash script, so the format is
+.RS 6n
+var="value"
+.RE
+Please do not try to get fancy.
+.SS "General Blog Settings"
+.TP 24n
+global_title
+Blog title
+.TP 24n
+global_description
+The typical subtitle for each blog.
+.TP 24n
+global_url
+The public base URL for this blog.
+.TP 24n
+global_author
+Your name
+.TP 24n
+global_author_url
+You can use your tildehome, Twitter, Facebook, etc. as your
+\(oqglobal_author_url\(cq
+.TP 24n
+global_email
+Your email address.
+.TP 24n
+global_license
+CC by-nc-nd is a good starting point, but you can pick a different license. You can change this to
+\(oq&copy;\(cq
+for Copyright.
+.TP 24n
+global_feedburner
+Set to empty
+(\(oq\(cq)
+if you don't use feedburner, otherwise point it to your URL.
+.TP 24n
+global_twitter_username
+.br
+Set this to your username if you want to use Twitter for comments.
+.TP 24n
+global_twitter_cookieless
+Set this to
+\(oqfalse\(cq
+for a Twitter button with a share count. The cookieless version is just a link. This is to comply to EU GDPR regulations.
+.TP 24n
+global_twitter_search
+Default search page, where tweets more than a week old are hidden.
+.SS "Blog Generated Files Settings"
+.TP 24n
+index_file
+The index page of the blog. Probably a good idea to stick with
+\(oqindex.html\(cq
+.TP 24n
+number_of_index_articles
+How many posts to show on the index page.
+.TP 24n
+archive_index
+Page name of your
+\(lqall posts\(rq
+page.
+.TP 24n
+tags_index
+Page name of your
+\(lqall tags\(rq
+page.
+.TP 24n
+gophermap
+Ignore gophermap?
+.TP 24n
+non_blogpost_files
+A bash array of files that
+\fBbb\fR
+will ignore. Useful for static resources. E.g.
+.RS 30n
+.RE
+.RS 24n
+non_blogpost_files=("news.html" "test.html")
+.RE
+.TP 24n
+blog_feed
+RSS feed file name.
+.TP 24n
+number_of_feed_articles
+.br
+How many posts to put in the RSS feed.
+.TP 24n
+cut_do
+\(lqcut\(rq
+blog entry when putting it to index page. Leave blank for full
+articles in front page, i.e. include only up to first
+\(oq<hr>\(cq
+or
+\(oq----\(cq
+in markdown.
+.TP 24n
+cut_tags
+When cutting, cut also tags? If
+\(oqno\(cq
+, tags will appear in index page for cut articles. If
+\(oqyes\(cq,
+they won't.
+.TP 24n
+cut_line
+regex(7)
+matching the HTML line where to do the cut.
+\fINote\fR
+that the slash is regexp separator so you need to prepend it with backslash
+(\(oq\e\(cq).
+.TP 24n
+save_markdown
+If
+\(oqyes\(cq,
+save markdown file when posting with
+\(oqbb post\(cq
+(and markdown is available).
+.TP 24n
+prefix_tags
+Prefix for tags/categories files. Please make sure no other html file starts with this prefix.
+.TP 24n
+header_file
+.TP 24n
+footer_file
+Personalized header and footer (only if you know what you're doing).
+\fIDO NOT\fR
+name them
+\(oq.header.html\(cq,\(oq.footer.html\(cq
+or they will be overwritten. Leave blank
+("")
+to generate them, which is recommended.
+.TP 24n
+body_begin_file
+Extra content to add just before we open the
+\(oq<body>\(cq
+tag and before the actual blog content.
+.TP 24n
+body_end_file
+Extra content to add just before we close
+\(oq<body>\(cq
+tag (just before
+\(oq</body>\(cq).
+.TP 24n
+css_include
+CSS files to include on every page, e.g.
+.RS 30n
+css_include=('main.css' 'blog.css')
+.RE
+.RS 24n
+Leave blank ("") to use the generated ones.
+.RE
+.TP 24n
+html_exclude
+HTML files to exclude from index, e.g.
+.RS 30n
+html_exclude=('imprint.html' 'aboutme.html')
+.RE
+.SS "Localization and Internationalization"
+.TP 24n
+template_comments
+\(lqComments?\(rq
+(used in twitter link after every post).
+.TP 24n
+template_read_more
+\(lqRead more...\(rq
+(link under cut article on index page).
+.TP 24n
+template_archive
+\(lqView more posts\(rq
+(used on bottom of index page as link to archive).
+.TP 24n
+template_archive_title
+\(lqAll posts\(rq
+(title of archive page).
+.TP 24n
+template_tags_title
+\(lqAll tags\(rq
+.TP 24n
+template_tags_posts
+\(lqposts\(rq
+(on
+\(lqAll tags\(rq
+page, text at the end of each tag line, like
+\(lq2.Music-15posts\(rq)
+.TP 24n
+template_tags_posts_2_4
+.br
+Some slavic languages use a different plural form for 2-4 items.
+.TP 24n
+template_tags_posts_singular
+Word to use for one post.
+.TP 24n
+template_tag_title
+\(lqPosts tagged\(rq
+(text on a title of a page with index of one tag, like
+\(lqMy Blog - Posts tagged \(oqMusic\(cq\(rq)
+.TP 24n
+template_tags_line_header
+\(lqTags:\(rq
+(beginning of line in HTML file with list of all tags for this article)
+.TP 24n
+template_archive_index_page
+\(lqBack to the index page\(rq
+(used on archive page, it is link to blog index)
+.TP 24n
+template_subscribe
+\(lqSubscribe\(rq
+(used on bottom of index page, it is link to RSS feed)
+.TP 24n
+template_subscribe_browser_button
+\(lqSubscribe to this page...\(rq
+(used as text for browser feed button that is embedded to html)
+.TP 24n
+template_twitter_button
+.br
+\(lqTweet\(rq
+(used as twitter text button for posting to twitter)
+.TP 24n
+template_twitter_comment
+Default comment used to prepopulate the form.
+.TP 24n
+date_format
+strftime(3)
+format to use for dates.
+.TP 24n
+date_locale
+locale(1)
+to use for dates.
+.TP 24n
+date_inpost
+\(oqbashblog_timestamp\(cq
+.TP 24n
+convert_filename
+Perform the post title -> filename conversion. Experts only. You may need to tune the locales too. Set to empty ("") for no conversion, which is not recommended. The default filter respects backwards compatibility.
+.TP 24n
+preview_url
+URL where you can view the post while it's being edited. By default, it is
+\(oqglobal_url\(cq
+You can change it to the path on your computer, if you write posts locally, before copying them to the server.
+.SH "EXAMPLES"
+.SH "DIAGNOSTICS"
+.SH "SEE ALSO"
+.SH "AUTHORS"
+cfenollosa \(la\fIhttps://github.com/cfenollosa\fR\(ra
+.PP
+man page by Vlad Me\[u0219]co \(la\fIalzwded@tilde.club\fR\(ra

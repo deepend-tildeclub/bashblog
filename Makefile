@@ -1,11 +1,12 @@
 BINDIR ?= /usr/local/bin
 MANDIR ?= /usr/local/man
+MANFLAVOR ?= man
 
 install:
 	@echo Installing the executable to $(BINDIR)
 	@install -D -m 755 bb.sh $(BINDIR)/bb
-	@echo Installing the man page to $(MANDIR)/man1
-	@install -D -m 644 bb.1 $(MANDIR)/man1/
+	@echo Installing the '$(MANFLAVOR)' man page to $(MANDIR)/man1
+	@install -D -m 644 bb.1.$(MANFLAVOR) $(MANDIR)/man1/
 
 uninstall:
 	@echo Removing the executable from $(BINDIR)
