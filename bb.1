@@ -42,13 +42,24 @@ to author a new post in markdown. if available, else in html directly. Use
 .Cm post
 .Fl html
 to start a new post using HTML even when markdown is available. After you
-save and exit your editor, you will be asked if you want to post (
-.Sq p
-), edit (
-.Sq E
-) or keep this for later as a draft (
+save and exit your editor, you will be asked if you want to post
+.Sm off
+(
+.Ql p
+),
+.Sm on
+edit
+.Sm off
+(
+.Ql E
+)
+.Sm on
+or keep this for later as a draft
+.Sm off
+(
 .Sq d
 ).
+.Sm on
 Posts will be served at
 .Pa https://tilde.club/~you/blog/
 \.
@@ -148,7 +159,7 @@ this is a bash script, so the format is
 .Dl var="value"
 Please do not try to get fancy.
 .Pp
-Available variables:
+.Ss General Blog Settings
 .Bl -tag -width xxxxxxxxxxxxxxxxxxxxxx
 .It global_title
 Blog title
@@ -168,17 +179,25 @@ CC by-nc-nd is a good starting point, but you can pick a different license. You 
 .Ql &copy;
 for Copyright.
 .It global_feedburner
-Set to empty (
+Set to empty
+.Sm off
+(
 .Ql ""
-) if you don't use feedburner, otherwise point it to your URL.
+)
+.Sm on
+if you don't use feedburner, otherwise point it to your URL.
 .It global_twitter_username
 Set this to your username if you want to use Twitter for comments.
 .It global_twitter_cookieless
 Set this to
 .Ql false
-for a Twitter button with a share count. The cookieless version is just a link.
+for a Twitter button with a share count. The cookieless version is just a link. This is to comply to EU GDPR regulations.
 .It global_twitter_search
 Default search page, where tweets more than a week old are hidden.
+.El
+.Pp
+.Ss Blog Generated Files Settings
+.Bl -tag -width xxxxxxxxxxxxxxxxxxxxxx
 .It index_file
 The index page of the blog. Probably a good idea to stick with
 .Ql index.html
@@ -216,8 +235,138 @@ in markdown.
 When cutting, cut also tags? If 
 .Ql no
 , tags will appear in index page for cut articles. If 
+.Sm off
 .Ql yes
-, they won't.
+,
+.Sm on
+they won't.
+.It cut_line
+.Xr regex 7
+matching the HTML line where to do the cut.
+.Em Note
+that the slash is regexp separator so you need to prepend it with backslash
+.Sm off
+(
+.Ql \e
+).
+.Sm on
+.It save_markdown
+If 
+.Sm off
+.Ql yes
+,
+.Sm on
+save markdown file when posting with
+.Ql bb post
+(and markdown is available).
+.It prefix_tags
+Prefix for tags/categories files. Please make sure no other html file starts with this prefix.
+.It header_file
+.It footer_file
+Personalized header and footer (only if you know what you're doing).
+.Em DO NOT
+name them
+.Sm off
+.Ql .header.html
+,
+.Ql .footer.html
+.Sm on
+or they will be overwritten. Leave blank
+("")
+to generate them, which is recommended.
+.It body_begin_file
+Extra content to add just before we open the
+.Ql <body>
+tag and before the actual blog content.
+.It body_end_file
+Extra content to add just before we close
+.Ql <body>
+tag (just before
+.Sm off
+.Ql </body>
+).
+.Sm on
+.It css_include
+CSS files to include on every page, e.g.
+.Dl css_include=('main.css' 'blog.css')
+Leave blank ("") to use the generated ones.
+.It html_exclude
+HTML files to exclude from index, e.g.
+.Dl html_exclude=('imprint.html' 'aboutme.html')
+.El
+.Pp
+.Ss Localization and Internationalization
+.Bl -tag -width xxxxxxxxxxxxxxxxxxxxxx
+.It template_comments
+.Dq Comments?
+(used in twitter link after every post).
+.It template_read_more
+.Dq Read more...
+(link under cut article on index page).
+.It template_archive
+.Dq View more posts
+(used on bottom of index page as link to archive).
+.It template_archive_title
+.Dq All posts
+(title of archive page).
+.It template_tags_title
+.Dq All tags
+.It template_tags_posts
+.Dq posts
+(on
+.Dq All tags
+page, text at the end of each tag line, like
+.Sm off
+.Dq 2. Music - 15 posts
+)
+.Sm on
+.It template_tags_posts_2_4
+Some slavic languages use a different plural form for 2-4 items.
+.It template_tags_posts_singular
+Word to use for one post.
+.It template_tag_title
+.Dq Posts tagged
+(text on a title of a page with index of one tag, like
+.Sm off
+.Do "My Blog - Posts tagged "
+.Sq Music
+.Dc
+)
+.Sm on
+.It template_tags_line_header
+.Dq Tags:
+(beginning of line in HTML file with list of all tags for this article)
+.It template_archive_index_page
+.Dq Back to the index page
+(used on archive page, it is link to blog index)
+.It template_subscribe
+.Dq Subscribe
+(used on bottom of index page, it is link to RSS feed)
+.It template_subscribe_browser_button
+.Dq Subscribe to this page...
+(used as text for browser feed button that is embedded to html)
+.It template_twitter_button
+.Dq Tweet
+(used as twitter text button for posting to twitter)
+.It template_twitter_comment
+Default comment used to prepopulate the form.
+.It date_format
+.Xr strftime 3
+format to use for dates.
+.It date_locale
+.Xr locale 1
+to use for dates.
+.It date_inpost
+.Ql bashblog_timestamp
+.It convert_filename
+Perform the post title -> filename conversion. Experts only. You may need to tune the locales too. Set to empty ("") for no conversion, which is not recommended. The default filter respects backwards compatibility.
+.It preview_url
+URL where you can view the post while it's being edited. By default, it is
+.Sm off
+.Ql global_url
+.
+.Sm on
+You can change it to the path on your computer, if you write posts locally, before copying them to the server.
 .El
 .Sh EXAMPLES
 .Sh DIAGNOSTICS
